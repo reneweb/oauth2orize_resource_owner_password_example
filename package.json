@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "express": "4.x.x",
-    "express-validator": "0.4.x",
+    "express-validator": "2.x.x",
     "body-parser": "1.x.x",
     "mongojs": "0.x.x",
     "oauth2orize": "1.x.x",

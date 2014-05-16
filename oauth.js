@@ -1,6 +1,6 @@
 var oauth2orize = require('oauth2orize')
     , passport = require('passport')
-    , db = require('db').db()
+    , db = require('./db').db()
     , crypto = require('crypto')
     , utils = require("./utils")
 

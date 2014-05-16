@@ -5,9 +5,9 @@ var express = require('express')
     , util = require('util')
     , bodyParser = require('body-parser')
     , expressValidator = require('express-validator')
-    , auth = require("auth")
-    , oauth = require("oauth")
-    , registration = require("registration")
+    , auth = require("./auth")
+    , oauth = require("./oauth")
+    , registration = require("./registration")
 
 // Express configuration
 var app = express()
