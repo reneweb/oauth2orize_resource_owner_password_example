@@ -5,16 +5,16 @@
     "start": "node ./app"
   },
   "dependencies": {
-    "express": "*",
-    "express-validator": "*",
-    "body-parser": "~1.0.0",
-    "mongojs": "*",
-    "oauth2orize": "*",
-    "passport": "*",
-    "passport-local": "*",
-    "passport-http-bearer": "*",
-    "passport-http": "*",
-    "passport-oauth2-client-password": "*",
-    "bcrypt": "*"
+    "express": "4.x.x",
+    "express-validator": "0.4.x",
+    "body-parser": "1.x.x",
+    "mongojs": "0.x.x",
+    "oauth2orize": "1.x.x",
+    "passport": "0.2.x",
+    "passport-local": "1.x.x",
+    "passport-http-bearer": "1.x.x",
+    "passport-http": "0.2.x",
+    "passport-oauth2-client-password": "0.1.x",
+    "bcrypt": "0.7.x"
   }
 }
