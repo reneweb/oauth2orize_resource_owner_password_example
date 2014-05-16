@@ -1,0 +1,20 @@
+{
+  "name": "oauth2orize_resource_owner_password_example",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node ./app"
+  },
+  "dependencies": {
+    "express": "*",
+    "express-validator": "*",
+    "body-parser": "~1.0.0",
+    "mongojs": "*",
+    "oauth2orize": "*",
+    "passport": "*",
+    "passport-local": "*",
+    "passport-http-bearer": "*",
+    "passport-http": "*",
+    "passport-oauth2-client-password": "*",
+    "bcrypt": "*"
+  }
+}
