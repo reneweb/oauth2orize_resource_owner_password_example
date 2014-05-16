@@ -69,7 +69,7 @@ passport.use("accessToken", new BearerStrategy(
                 db.collection('accessTokens').delete({accessToken: accessTokenHash}, function (err) { return done(err) })
             }
 
-            db.collection('users').find({_id: token.userID}, function (err, user) {
+            db.collection('users').findOne({username: token.userId}, function (err, user) {
                 if (err) return done(err)
                 if (!user) return done(null, false)
                 // no use of scopes for no
