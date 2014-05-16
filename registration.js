@@ -15,10 +15,16 @@ exports.registerUser = function(req, res) {
         var username = req.body['username']
         var password = req.body['password']
 
-        bcrypt.hash(password, 11, function (err, hash) {
-            db.collection('users').save({username: username, password: hash}, function (err, userId) {
-                res.send({username: username}, 201)
-            })
+        db.collection('users').findOne({username: username}, function (err, user) {
+            if(user) {
+                res.send("Username is already taken", 422)
+            } else {
+                bcrypt.hash(password, 11, function (err, hash) {
+                    db.collection('users').save({username: username, password: hash}, function (err) {
+                        res.send({username: username}, 201)
+                    })
+                })
+            }
         })
     }
 }
