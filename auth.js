@@ -33,8 +33,8 @@ passport.use("clientBasic", new BasicStrategy(
     function (clientId, clientSecret, done) {
         db.collection('clients').findOne({clientId: clientId}, function (err, client) {
             if (err) return done(err)
-            if (!client) return done(null, false, {message: "Client or client secret is invalid"})
-            if (!client.trustedClient) return done(null, false, {message: "This client is not a trusted one"})
+            if (!client) return done(null, false)
+            if (!client.trustedClient) return done(null, false)
 
             if (client.clientSecret == clientSecret) return done(null, client)
             else return done(null, false)
@@ -46,7 +46,8 @@ passport.use("clientPassword", new ClientPasswordStrategy(
     function (clientId, clientSecret, done) {
         db.collection('clients').findOne({clientId: clientId}, function (err, client) {
             if (err) return done(err)
-            if (!client) return done(null, false, {message: "Client or client secret is invalid"})
+            if (!client) return done(null, false)
+            if (!client.trustedClient) return done(null, false)
 
             if (client.clientSecret == clientSecret) return done(null, client)
             else return done(null, false)
