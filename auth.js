@@ -62,7 +62,7 @@ passport.use("clientPassword", new ClientPasswordStrategy(
 passport.use("accessToken", new BearerStrategy(
     function (accessToken, done) {
         var accessTokenHash = crypto.createHash('sha1').update(accessToken).digest('hex')
-        db.collection('accessTokens').find({accessToken: accessTokenHash}, function (err, token) {
+        db.collection('accessTokens').findOne({token: accessTokenHash}, function (err, token) {
             if (err) return done(err)
             if (!token) return done(null, false)
             if (new Date() > token.expirationDate) {

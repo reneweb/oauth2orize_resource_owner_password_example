@@ -19,7 +19,7 @@ app.use(passport.initialize())
 app.post('/users', registration.registerUser)
 app.post('/oauth/token', oauth.token)
 app.get('/restricted', passport.authenticate('accessToken', { session: false }), function (req, res) {
-    res.send("Yay, you successfully accessed the resitricted resource!")
+    res.send("Yay, you successfully accessed the restricted resource!")
 })
 
 //Start
