@@ -1,7 +1,7 @@
 oauth2orize_resource_owner_password_example
 ===========================================
 
-This is an example of oAuth's resorce owner password flow using oauth2orize, express 4 and mongoDB.
+This is an example of oAuth's resource owner password flow using oauth2orize, express 4 and mongoDB.
 
 ##### Installation
 
@@ -32,7 +32,7 @@ curl -v -H "Content-Type: application/json" -X POST <IP>:<PORT>/users -d '{"user
 curl -v -H "Content-Type: application/json" -X POST <IP>:<PORT>/oauth/token -u <clientId>:<clientSecret> -d '{"username": "<username>", "password": "<password>", "grant_type": "password"}'
 ```
 
-###### 3 - Access a restricet resource using the access token
+###### 3 - Access a restricted resource using the access token
 
 ```
 curl -X GET <IP>:<PORT>/restricted -v -H "Authorization: Bearer <accessToken>"
