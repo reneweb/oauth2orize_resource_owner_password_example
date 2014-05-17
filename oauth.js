@@ -3,23 +3,30 @@ var oauth2orize = require('oauth2orize')
     , db = require('./db').db()
     , crypto = require('crypto')
     , utils = require("./utils")
+    , bcrypt = require('bcrypt')
 
 // create OAuth 2.0 server
 var server = oauth2orize.createServer();
 
 //Resource owner password
 server.exchange(oauth2orize.exchange.password(function (client, username, password, scope, done) {
-    passport.authenticate('userLocal', { session: false }, function(req, res) {
-        var token = utils.uid(256)
-        var refreshToken = utils.uid(256)
-        var tokenHash = crypto.createHash('sha1').update(token).digest('hex')
-        var refreshTokenHash = crypto.createHash('sha1').update(refreshToken).digest('hex')
+    db.collection('users').findOne({username: username}, function (err, user) {
+        if (err) return done(err)
+        if (!user) return done(null, false)
+        bcrypt.compare(password, user.password, function (err, res) {
+            if (!res) return done(null, false)
+            
+            var token = utils.uid(256)
+            var refreshToken = utils.uid(256)
+            var tokenHash = crypto.createHash('sha1').update(token).digest('hex')
+            var refreshTokenHash = crypto.createHash('sha1').update(refreshToken).digest('hex')
+            
+            var expirationDate = new Date(new Date().getTime() + (3600 * 1000))
         
-        var expirationDate = new Date(new Date().getTime() + (3600 * 1000))
-    
-        db.collection('accessTokens').save({token: tokenHash, refreshToken: refreshTokenHash, expirationDate: expirationDate, clientId: client._id, userId: username, scope: scope}, function (err) {
-            if (err) return done(err)
-            done(null, token, refreshToken, {expires_in: expirationDate})
+            db.collection('accessTokens').save({token: tokenHash, refreshToken: refreshTokenHash, expirationDate: expirationDate, clientId: client._id, userId: username, scope: scope}, function (err) {
+                if (err) return done(err)
+                done(null, token, refreshToken, {expires_in: expirationDate})
+            })
         })
     })
 }))
@@ -38,7 +45,7 @@ server.exchange(oauth2orize.exchange.refreshToken(function (client, refreshToken
         
         var expirationDate = new Date(new Date().getTime() + (3600 * 1000))
     
-        db.collection('accessTokens').update({refreshToken: refreshTokenHash}, {token: accessTokenHash, scope: scope, expirationDate: expirationDate}, function (err) {
+        db.collection('accessTokens').update({refreshToken: refreshTokenHash}, {$set: {token: accessTokenHash, scope: scope, expirationDate: expirationDate}}, function (err) {
             if (err) return done(err)
             done(null, newAccessToken, refreshToken, {expires_in: expirationDate});
         })

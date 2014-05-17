@@ -1,28 +1,9 @@
 var passport = require('passport')
-    , LocalStrategy = require('passport-local').Strategy
     , BasicStrategy = require('passport-http').BasicStrategy
     , ClientPasswordStrategy = require('passport-oauth2-client-password').Strategy
     , BearerStrategy = require('passport-http-bearer').Strategy
     , db = require('./db').db()
-    , bcrypt = require('bcrypt')
     , crypto = require('crypto')
-
-/**
- * This strategy is used to authenticate a user based on the username and password
- * This strategy is only used when exchanging an access token for the username and password
- */
-passport.use('userLocal', new LocalStrategy(
-    function (username, password, done) {
-        db.collection('users').findOne({username: username}, function (err, user) {
-            if (err) return done(err)
-            if (!user) return done(null, false)
-            bcrypt.compare(password, user.password, function (err, res) {
-                if (res) return done(null, user)
-                else return done(null, false);
-            })
-        })
-    }
-))
 
 /**
  * These strategies are used to authenticate registered OAuth clients.
