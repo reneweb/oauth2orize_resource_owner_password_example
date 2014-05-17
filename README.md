@@ -26,7 +26,7 @@ For example:
 curl -v -H "Content-Type: application/json" -X POST <IP>:<PORT>/users -d '{"username": "<username>", "password": "<password>"}'
 ```
 
-###### 2 - Get the access token
+###### 2 - Get an access token
 
 ```
 curl -v -H "Content-Type: application/json" -X POST <IP>:<PORT>/oauth/token -u <clientId>:<clientSecret> -d '{"username": "<username>", "password": "<password>", "grant_type": "password"}'
