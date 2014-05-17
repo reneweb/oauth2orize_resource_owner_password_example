@@ -10,6 +10,7 @@ git clone https://github.com/reneweb/oauth2orize_resource_owner_password_example
 npm install
 node app.js
 ```
+Note: You may need to change the database configuration in the db.js file, if mongoDB doesn't run using the default port or is not running on localhost.
 
 ##### Usage (with cURL)
 
