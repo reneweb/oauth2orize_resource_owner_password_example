@@ -11,7 +11,6 @@
     "mongojs": "0.x.x",
     "oauth2orize": "1.x.x",
     "passport": "0.2.x",
-    "passport-local": "1.x.x",
     "passport-http-bearer": "1.x.x",
     "passport-http": "0.2.x",
     "passport-oauth2-client-password": "0.1.x",
