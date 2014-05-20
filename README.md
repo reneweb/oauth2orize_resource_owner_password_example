@@ -1,7 +1,7 @@
 oauth2orize_resource_owner_password_example
 ===========================================
 
-This is an example of oAuth's resource owner password flow using oauth2orize, express 4 and mongoDB.
+This is an example of the oAuth resource owner password flow using oauth2orize, express 4 and mongoDB.
 
 ##### Installation
 
