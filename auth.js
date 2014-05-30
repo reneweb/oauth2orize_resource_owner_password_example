@@ -47,16 +47,16 @@ passport.use("accessToken", new BearerStrategy(
             if (err) return done(err)
             if (!token) return done(null, false)
             if (new Date() > token.expirationDate) {
-                db.collection('accessTokens').remove({token: accessTokenHash}, function (err) { return done(err) })
+                db.collection('accessTokens').remove({token: accessTokenHash}, function (err) { done(err) })
+            } else {
+                db.collection('users').findOne({username: token.userId}, function (err, user) {
+                    if (err) return done(err)
+                    if (!user) return done(null, false)
+                    // no use of scopes for no
+                    var info = { scope: '*' }
+                    done(null, user, info);
+                })
             }
-
-            db.collection('users').findOne({username: token.userId}, function (err, user) {
-                if (err) return done(err)
-                if (!user) return done(null, false)
-                // no use of scopes for no
-                var info = { scope: '*' }
-                done(null, user, info);
-            });
-        });
+        })
     }
 ))
