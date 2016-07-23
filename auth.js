@@ -47,7 +47,7 @@ passport.use("accessToken", new BearerStrategy(
             if (err) return done(err)
             if (!token) return done(null, false)
             if (new Date() > token.expirationDate) {
-                db.collection('accessTokens').remove({token: accessTokenHash}, function (err) { done(err) })
+                done(null, false)
             } else {
                 db.collection('users').findOne({username: token.userId}, function (err, user) {
                     if (err) return done(err)
